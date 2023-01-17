@@ -9,6 +9,10 @@ provider "google" {
   project = "deploying-in-269-e482bb51" # get this from sandbox environment
 }
 
+variable "GOOGLE_CREDENTIALS" {
+  description = "Google Credentials (JSON)"
+}
+
 resource "google_compute_instance" "vm" {
   name         = "created-with-terraform-cloud"
   machine_type = "f1-micro"
