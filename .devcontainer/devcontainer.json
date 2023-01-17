@@ -13,12 +13,12 @@
 	},
 
 	"extensions": [
-		"hashicorp.terraform",
-		"hashicorp.hcl",
-		"hashicorp.sentinel",
-		"googlecloudtools.cloudcode",
-		"ms-azuretools.vscode-docker",
-		"github.vscode-pull-request-github"
+		// "hashicorp.terraform",
+		// "hashicorp.hcl",
+		// "hashicorp.sentinel",
+		// "googlecloudtools.cloudcode",
+		// "ms-azuretools.vscode-docker",
+		// "github.vscode-pull-request-github"
 	]
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
