@@ -6,8 +6,21 @@
 	"image": "mcr.microsoft.com/devcontainers/base:jammy",
 	"features": {
 		"ghcr.io/devcontainers/features/terraform:1": {},
-		"ghcr.io/dhoeric/features/google-cloud-cli:1": {}
-	}
+		"ghcr.io/dhoeric/features/google-cloud-cli:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"version": "lts"
+		}
+	},
+
+	"extensions": [
+		"hashicorp.terraform",
+		"hashicorp.hcl",
+		"hashicorp.sentinel",
+		"googlecloudtools.cloudcode",
+		"ms-azuretools.vscode-docker",
+		"github.vscode-pull-request-github",
+		"mutantdino.resourcemonitor"
+	]
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
