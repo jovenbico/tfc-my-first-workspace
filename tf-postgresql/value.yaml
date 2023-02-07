@@ -1,0 +1,9 @@
+databases:
+  "dragon":
+    "owner": "dragon_user"
+  # "elf":
+  #   "owner": "elf_user"
+  # "fae":
+  #   "owner": "fae_user"
+  # "wolf":
+  #   "owner": "wolf_user"
