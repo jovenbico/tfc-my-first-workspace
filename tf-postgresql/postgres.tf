@@ -38,6 +38,10 @@ resource "postgresql_grant" "public_revoke_database" {
   privileges  = []
 
   with_grant_option = true
+
+  depends_on = [
+    postgresql_database.db
+  ]
 }
 
 # Revoke default accesses for PUBLIC role to the public schema
@@ -51,4 +55,8 @@ resource "postgresql_grant" "public_revoke_schema" {
   privileges  = []
 
   with_grant_option = true
+
+  depends_on = [
+    postgresql_database.db
+  ]
 }
