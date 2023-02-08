@@ -28,6 +28,38 @@ resource "postgresql_database" "db" {
   ]
 }
 
+# !!! It works with it !!! #
+############################
+# resource "postgresql_grant" "owner_db" {
+#   for_each = local.databases
+
+#   database    = each.key
+#   role        = each.value.owner
+#   schema      = "public"
+#   object_type = "database"
+#   privileges  = ["CONNECT", "CREATE", "TEMPORARY"]
+
+#   depends_on = [
+#     postgresql_grant.public_revoke_schema,
+#     postgresql_grant.public_revoke_database
+#   ]
+# }
+
+resource "postgresql_grant" "owner_schema" {
+  for_each = local.databases
+
+  database    = each.key
+  role        = each.value.owner
+  schema      = "public"
+  object_type = "schema"
+  privileges  = ["CREATE", "USAGE"]
+
+  depends_on = [
+    postgresql_grant.public_revoke_schema,
+    postgresql_grant.public_revoke_database
+  ]
+}
+
 # Revoke default accesses for PUBLIC role to the databases
 resource "postgresql_grant" "public_revoke_database" {
   for_each = local.databases
