@@ -15,6 +15,9 @@
 		"ghcr.io/dhoeric/features/google-cloud-cli:1": {},
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
 			"version": "lts"
+		},
+		"ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+			"packages": "net-tools,iputils-ping,telnet"
 		}
 	},
 	"customizations": {
