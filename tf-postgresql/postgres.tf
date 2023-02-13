@@ -15,6 +15,23 @@ resource "postgresql_role" "role" {
   login = true
   # password = random_password.password[each.key].result
   password = each.value.password
+
+  lifecycle {
+    ignore_changes = [
+      roles,
+    ]
+  }
+}
+
+resource "postgresql_grant_role" "grant" {
+  for_each = local.databases
+
+  role       = var.postgresql_username
+  grant_role = each.value.owner
+
+  depends_on = [
+    postgresql_role.role
+  ]
 }
 
 resource "postgresql_database" "db" {
@@ -24,7 +41,8 @@ resource "postgresql_database" "db" {
   owner = each.value.owner
 
   depends_on = [
-    postgresql_role.role
+    postgresql_role.role,
+    # postgresql_grant_role.grant
   ]
 }
 
@@ -45,50 +63,50 @@ resource "postgresql_database" "db" {
 #   ]
 # }
 
-resource "postgresql_grant" "owner_schema" {
-  for_each = local.databases
+# resource "postgresql_grant" "owner_schema" {
+#   for_each = local.databases
 
-  database    = each.key
-  role        = each.value.owner
-  schema      = "public"
-  object_type = "schema"
-  privileges  = ["CREATE", "USAGE"]
+#   database    = each.key
+#   role        = each.value.owner
+#   schema      = "public"
+#   object_type = "schema"
+#   privileges  = ["CREATE", "USAGE"]
 
-  depends_on = [
-    postgresql_grant.public_revoke_schema,
-    postgresql_grant.public_revoke_database
-  ]
-}
+#   # depends_on = [
+#   #   postgresql_grant.public_revoke_schema,
+#   #   postgresql_grant.public_revoke_database
+#   # ]
+# }
 
-# Revoke default accesses for PUBLIC role to the databases
-resource "postgresql_grant" "public_revoke_database" {
-  for_each = local.databases
+# # Revoke default accesses for PUBLIC role to the databases
+# resource "postgresql_grant" "public_revoke_database" {
+#   for_each = local.databases
 
-  database    = each.key
-  role        = "public"
-  object_type = "database"
-  privileges  = []
+#   database    = each.key
+#   role        = "public"
+#   object_type = "database"
+#   privileges  = []
 
-  with_grant_option = true
+#   with_grant_option = true
 
-  depends_on = [
-    postgresql_database.db
-  ]
-}
+#   depends_on = [
+#     postgresql_database.db
+#   ]
+# }
 
-# Revoke default accesses for PUBLIC role to the public schema
-resource "postgresql_grant" "public_revoke_schema" {
-  for_each = local.databases
+# # Revoke default accesses for PUBLIC role to the public schema
+# resource "postgresql_grant" "public_revoke_schema" {
+#   for_each = local.databases
 
-  database    = each.key
-  role        = "public"
-  schema      = "public"
-  object_type = "schema"
-  privileges  = []
+#   database    = each.key
+#   role        = "public"
+#   schema      = "public"
+#   object_type = "schema"
+#   privileges  = []
 
-  with_grant_option = true
+#   with_grant_option = true
 
-  depends_on = [
-    postgresql_database.db
-  ]
-}
+#   depends_on = [
+#     postgresql_database.db
+#   ]
+# }

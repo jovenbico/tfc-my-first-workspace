@@ -5,9 +5,9 @@ databases:
   "elf":
     "owner": "elf_king"
     "password": "r@nd0m-s3cr3t"
-  "fae":
-    "owner": "fae_king"
-    "password": "r@nd0m-s3cr3t"
-  "wolf":
-    "owner": "wolf_king"
-    "password": "r@nd0m-s3cr3t"
+  # "fae":
+  #   "owner": "fae_king"
+  #   "password": "r@nd0m-s3cr3t"
+  # "wolf":
+  #   "owner": "wolf_king"
+  #   "password": "r@nd0m-s3cr3t"

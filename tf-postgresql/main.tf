@@ -11,9 +11,20 @@ terraform {
   }
 }
 
+variable "postgresql_username" {
+  type    = string
+  default = "nonsuper"
+}
+
+variable "postgresql_password" {
+  type    = string
+  default = "t0p-s3cr3t"
+}
+
 provider "postgresql" {
-  host     = "172.18.0.2"
-  username = "postgres"
-  password = "t0p-s3cr3t"
-  sslmode  = "disable"
+  host      = "172.18.0.2"
+  username  = var.postgresql_username
+  password  = var.postgresql_password
+  sslmode   = "disable"
+  superuser = false
 }
